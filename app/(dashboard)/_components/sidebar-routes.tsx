@@ -1,7 +1,7 @@
 'use client';
 
 const SidebarRoutes = () => {
-  return <div>sidebarroutes</div>;
+  return <div>sidebarroutes!</div>;
 };
 
 export default SidebarRoutes;
