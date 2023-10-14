@@ -1,6 +1,6 @@
 'use client';
 
-import { Layout } from 'lucide-react';
+import { Layout, Compass } from 'lucide-react';
 
 const guestRoutes = [
   {
@@ -9,9 +9,9 @@ const guestRoutes = [
     href: '/',
   },
   {
-    icon: Layout,
-    label: 'Dashboard',
-    href: '/',
+    icon: Compass,
+    label: 'Browse',
+    href: '/search',
   },
 ];
 const SidebarRoutes = () => {
