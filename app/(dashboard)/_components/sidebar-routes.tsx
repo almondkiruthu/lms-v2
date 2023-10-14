@@ -15,7 +15,14 @@ const guestRoutes = [
   },
 ];
 const SidebarRoutes = () => {
-  return <div className='flex flex-col w-full'>sidebarroutes!</div>;
+  const routes = guestRoutes;
+  return (
+    <div className='flex flex-col w-full'>
+      {routes.map((route) => (
+        <SidebarItem key={route.href} icon={route.href} label={route.label} />
+      ))}
+    </div>
+  );
 };
 
 export default SidebarRoutes;
