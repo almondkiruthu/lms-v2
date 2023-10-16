@@ -28,7 +28,7 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
       onClick={onClick}
       type='button'
       className={cn(
-        'flex items-center gap-x-2 text-slate-500 text-sm transition-all hover:text-slate-600 hover:bg-slate-300/20',
+        'flex items-center gap-x-2 text-slate-500 text-sm transition-all hover:text-slate-600 hover:bg-slate-300/20 pl-6',
         isActive &&
           'text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700'
       )}
@@ -42,7 +42,7 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
       </div>
       <div
         className={cn(
-          'ml-auto opacity-0 border-2 border-sky-700 h-full transition-all',
+          'ml-auto opacity-0 border-2 border-sky-700 h-[3rem] transition-all',
           isActive && 'opacity-100'
         )}
       />
