@@ -1,9 +1,9 @@
-import { UserButton } from '@clerk/nextjs';
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
-    <div>
-      <UserButton afterSignOutUrl='/' />
+    <div className="pl-6">
+      <UserButton afterSignOutUrl="/" />
     </div>
   );
 }
