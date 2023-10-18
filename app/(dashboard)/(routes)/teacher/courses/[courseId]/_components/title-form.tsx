@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+
 interface TitleFormProps {
   intialData: {
     title: string;
@@ -52,8 +53,9 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
      toast.success("Course title updated");
      toggleEdit()
      router.refresh()
-    } catch {
+    } catch(error) {
       toast.error("Something went wrong");
+      console.log(error)
     }
   };
 
