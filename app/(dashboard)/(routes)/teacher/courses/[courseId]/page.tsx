@@ -1,5 +1,7 @@
+import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
+import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 
 const CourseIdPage = async ({
@@ -50,6 +52,7 @@ const CourseIdPage = async ({
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <div className="flex items-center gap-x-2">
+            <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customize your Course</h2>
           </div>
         </div>
