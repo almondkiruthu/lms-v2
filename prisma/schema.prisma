@@ -9,7 +9,7 @@ generator client {
 }
 
 model Course {
-  id          String  @id @unique @default(uuid())
+  id          String  @id @default(uuid())
   userId      String
   title       String  @db.Text
   description String? @db.Text

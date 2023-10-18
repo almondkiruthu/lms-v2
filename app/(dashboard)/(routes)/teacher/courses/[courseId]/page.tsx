@@ -51,14 +51,14 @@ const CourseIdPage = async ({
           </span>
         </div>
       </div>
-      <div className="mt-16 grid grid-cols-1 items-center gap-6 md:grid-cols-2">
+      <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customize your Course</h2>
           </div>
+          <TitleForm intialData={course} courseId={course.id} />
         </div>
-        <TitleForm intialData={course} courseId={course.id} />
       </div>
     </div>
   );
