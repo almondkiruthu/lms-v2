@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import {
   Form,
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface TitleFormProps {
   intialData: {
@@ -35,6 +37,8 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: intialData,
@@ -44,7 +48,13 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-    } catch {}
+     await axios.patch(`/api/courses/${courseId}`, values);
+     toast.success("Course title updated");
+     toggleEdit()
+     router.refresh()
+    } catch {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -63,9 +73,34 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
         </Button>
       </div>
       {!isEditing && <p className="mt-2 text-sm">{intialData.title}</p>}
-      {isEditing &&(
+      {isEditing && (
         <Form {...form}>
-           
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-4 space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'Advanced web development'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex items-center gap-x-2">
+              <Button disabled={!isValid || isSubmitting} type="submit">
+                Save
+              </Button>
+            </div>
+          </form>
         </Form>
       )}
     </div>
