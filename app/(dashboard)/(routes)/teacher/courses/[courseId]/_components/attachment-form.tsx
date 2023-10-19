@@ -3,7 +3,7 @@
 import Image from "next/image";
 import * as z from "zod";
 import axios from "axios";
-import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
+import { File, ImageIcon, Loader2, Pencil, PlusCircle, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,7 @@ const formSchema = z.object({
 
 const AttachmentForm = ({ intialData, courseId }: AttachmentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -31,11 +32,24 @@ const AttachmentForm = ({ intialData, courseId }: AttachmentFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/attachments`, values);
-      toast.success("Course Image updated");
+      toast.success("Course attachment added");
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong");
+    }
+  };
+
+  const onDelete = async (id: string) => {
+    try {
+      setDeletingId(id);
+      await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
+      toast.success("Course attachment deleted");
+      router.refresh();
+    } catch {
+      toast.error("Something went wrong");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -59,6 +73,33 @@ const AttachmentForm = ({ intialData, courseId }: AttachmentFormProps) => {
             <p className="mt-2 text-sm italic text-slate-500">
               No attachments yet
             </p>
+          )}
+          {intialData.attachments.length > 0 && (
+            <div className="space-y-2">
+              {intialData.attachments.map((attachment) => (
+                <div
+                  key={attachment.id}
+                  className="tems-center flex w-full rounded-md border
+                   border-sky-200 bg-sky-100 p-3 text-sky-700"
+                >
+                  <File className="mr-2 h-4 w-4 flex-shrink-0" />
+                  <p className="line-clamp-1 text-xs">{attachment.name}</p>
+                  {deletingId === attachment.id && (
+                    <div>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    </div>
+                  )}
+                  {deletingId !== attachment.id && (
+                    <button
+                      onClick={() => onDelete(attachment.id)}
+                      className="ml-auto transition hover:opacity-75"
+                    >
+                      <X className=" h-4 w-4 text-red-500" />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </>
       )}
