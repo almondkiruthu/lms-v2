@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
 import ImageForm from "./_components/image-form";
+import CategoryForm from "./_components/category-form";
 
 const CourseIdPage = async ({
   params,
@@ -68,6 +69,14 @@ const CourseIdPage = async ({
           <TitleForm intialData={course} courseId={course.id} />
           <DescriptionForm intialData={course} courseId={course.id} />
           <ImageForm intialData={course} courseId={course.id} />
+          <CategoryForm
+            intialData={course}
+            courseId={course.id}
+            options={categories.map((category) => ({
+              label: category.name,
+              value: category.id,
+            }))}
+          />
         </div>
       </div>
     </div>
