@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -17,13 +20,9 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 
 interface DescriptionFormProps {
-  intialData: {
-    description: string;
-  };
+  intialData: Course;
   courseId: string;
 }
 
@@ -42,7 +41,7 @@ const DescriptionForm = ({ intialData, courseId }: DescriptionFormProps) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: intialData,
+    defaultValues: { description: intialData?.description || "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
