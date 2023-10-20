@@ -53,7 +53,6 @@ const CategoryForm = ({ intialData, courseId, options }: CategoryFormProps) => {
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong");
-      console.log(error);
     }
   };
 

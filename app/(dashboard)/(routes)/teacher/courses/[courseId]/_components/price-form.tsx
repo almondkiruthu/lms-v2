@@ -55,7 +55,6 @@ const PriceForm = ({ intialData, courseId }: PriceFormProps) => {
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong");
-      console.log(error);
     }
   };
 

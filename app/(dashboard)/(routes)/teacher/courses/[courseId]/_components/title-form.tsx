@@ -19,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-
 interface TitleFormProps {
   intialData: {
     title: string;
@@ -38,7 +37,7 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,13 +48,12 @@ const TitleForm = ({ intialData, courseId }: TitleFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-     await axios.patch(`/api/courses/${courseId}`, values);
-     toast.success("Course title updated");
-     toggleEdit()
-     router.refresh()
-    } catch(error) {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Course title updated");
+      toggleEdit();
+      router.refresh();
+    } catch (error) {
       toast.error("Something went wrong");
-      console.log(error)
     }
   };
 

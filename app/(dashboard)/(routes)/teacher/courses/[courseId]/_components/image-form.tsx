@@ -38,7 +38,6 @@ const ImageForm = ({ intialData, courseId }: ImageFormProps) => {
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong");
-      console.log(error);
     }
   };
 
