@@ -18,9 +18,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ChaptersList } from "./chapters-list";
 
 interface ChapterFormProps {
   intialData: Course & { chapters: Chapter[] };
@@ -112,6 +112,11 @@ const ChapterForm = ({ intialData, courseId }: ChapterFormProps) => {
           )}
         >
           {!intialData.chapters.length && "No chapters"}
+          <ChaptersList
+            onEdit={() => {}}
+            onReorder={() => {}}
+            items={intialData.chapters || []}
+          />
         </div>
       )}
       {!isCreating && (
