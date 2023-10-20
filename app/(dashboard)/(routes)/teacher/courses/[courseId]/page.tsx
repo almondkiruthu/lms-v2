@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";
+import ChapterForm from "./_components/chapters-form";
 
 const CourseIdPage = async ({
   params,
@@ -99,7 +100,7 @@ const CourseIdPage = async ({
               <IconBadge icon={ListChecks} />
               <h2 className="text-xl">Course Chapters</h2>
             </div>
-            <div>TODO: Add chapters</div>
+            <ChapterForm intialData={course} courseId={course.id} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">
