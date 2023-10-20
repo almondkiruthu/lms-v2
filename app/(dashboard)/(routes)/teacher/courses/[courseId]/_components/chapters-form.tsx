@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Pencil, Plus, PlusCircle } from "lucide-react";
+import { Loader2, Pencil, Plus, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -82,9 +82,17 @@ const ChapterForm = ({ intialData, courseId }: ChapterFormProps) => {
   };
 
   return (
-    <div className="mt-6 rounded-md border bg-slate-100 p-4">
+    <div className=" relative mt-6 rounded-md border bg-slate-100 p-4">
+      {isUpdating && (
+        <div
+          className="absolute right-0 top-0 flex h-full w-full items-center 
+        justify-center rounded-md bg-slate-500/20"
+        >
+          <Loader2 className="h-6 w-6 animate-spin text-sky-700" />
+        </div>
+      )}
       <div className="flex items-center justify-between font-medium">
-        Course description
+        Course chapters
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
             <>Cancel</>
@@ -133,7 +141,7 @@ const ChapterForm = ({ intialData, courseId }: ChapterFormProps) => {
         >
           {!intialData.chapters.length && "No chapters"}
           <ChaptersList
-            onEdit={() => {}}
+            onEdit={onEdit}
             onReorder={onReorder}
             items={intialData.chapters || []}
           />
@@ -141,7 +149,7 @@ const ChapterForm = ({ intialData, courseId }: ChapterFormProps) => {
       )}
       {!isCreating && (
         <p className="mt-4 text-xs text-muted-foreground">
-          Drag and drop to reoder the chspters
+          Drag and drop to reorder the chapters
         </p>
       )}
     </div>
