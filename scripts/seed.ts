@@ -26,3 +26,4 @@ async function main() {
 }
 
 main();
+// Add the Rich text editor to the chapter description
