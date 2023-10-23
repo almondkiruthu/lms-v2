@@ -14,13 +14,14 @@ import { Chapter, Course } from "@prisma/client";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Editor } from "@/components/editor";
 import { Preview } from "@/components/preview";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface ChapterAccessFormProps {
   intialData: Chapter;
@@ -69,28 +70,28 @@ const ChapterAccessForm = ({
   return (
     <div className="mt-6 rounded-md border bg-slate-100 p-4">
       <div className="flex items-center justify-between font-medium">
-        Chapter description
+        Chapter access settings
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="mr-2 h-4 w-4" />
-              Edit description
+              Edit access settings
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
-        <div
-          className={cn(
-            "mt-2 text-sm",
-            !intialData.description && "text-slate-500",
-          )}
+        <p
+          className={cn("mt-2 text-sm", !intialData.isFree && "text-slate-500")}
         >
-          {!intialData.description && "No description"}
-          {intialData.description && <Preview value={intialData.description} />}
-        </div>
+          {intialData.isFree ? (
+            <>This chapter is free for preview</>
+          ) : (
+            <>This chapter is not free</>
+          )}
+        </p>
       )}
       {isEditing && (
         <Form {...form}>
@@ -100,12 +101,21 @@ const ChapterAccessForm = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="isFree"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Editor {...field} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormDescription>
+                      Check this box if you want to make this chapter free for
+                      preview
+                    </FormDescription>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
