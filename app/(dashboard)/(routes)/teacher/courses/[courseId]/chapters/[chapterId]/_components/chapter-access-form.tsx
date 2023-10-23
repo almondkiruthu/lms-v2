@@ -22,21 +22,21 @@ import { Button } from "@/components/ui/button";
 import { Editor } from "@/components/editor";
 import { Preview } from "@/components/preview";
 
-interface ChapterDescriptionFormProps {
+interface ChapterAccessFormProps {
   intialData: Chapter;
   courseId: string;
   chapterId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1),
+  isFree: z.boolean().default(false),
 });
 
-const ChapterDescriptionForm = ({
+const ChapterAccessForm = ({
   intialData,
   courseId,
   chapterId,
-}: ChapterDescriptionFormProps) => {
+}: ChapterAccessFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -45,7 +45,9 @@ const ChapterDescriptionForm = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { description: intialData?.description || "" },
+    defaultValues: {
+      isFree: Boolean(intialData.isFree),
+    },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -56,7 +58,7 @@ const ChapterDescriptionForm = ({
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values,
       );
-      toast.success("Chapter description updated");
+      toast.success("Chapter access settings updated");
       toggleEdit();
       router.refresh();
     } catch (error) {
@@ -120,4 +122,4 @@ const ChapterDescriptionForm = ({
   );
 };
 
-export default ChapterDescriptionForm;
+export default ChapterAccessForm;
