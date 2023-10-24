@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import ChapterForm from "./_components/chapters-form";
 import { Banner } from "@/components/banner";
-import { CourseActions } from "./_components/course-actions";
+import { Actions } from "./_components/course-actions";
 
 const CourseIdPage = async ({
   params,
@@ -90,7 +90,11 @@ const CourseIdPage = async ({
               Complete all fields {completionText}
             </span>
           </div>
-        <CourseActions />
+          <Actions
+            disabled={!isComplete}
+            courseId={course.id}
+            isPublished={course.isPublished}
+          />
         </div>
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
