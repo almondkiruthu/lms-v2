@@ -29,7 +29,9 @@ export const CourseProgressButton = ({
   const onClick = async () => {
     try {
       setIsLoading(true);
-
+      // if (setIsLoading(true)) {
+      //   toast.loading("Updating progress");
+      // }
       await axios.put(
         `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         {
