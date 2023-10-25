@@ -13,11 +13,10 @@ async function main() {
         { name: "Accounting" },
         { name: "Engineering" },
         { name: "Filming" },
-        { name: "Web Development" },
       ],
     });
 
-    console.log("Categories seeded successfully");
+    console.log("Success");
   } catch (error) {
     console.log("Error seeding the database categories", error);
   } finally {
@@ -26,4 +25,3 @@ async function main() {
 }
 
 main();
-// Add the Rich text editor to the chapter description
