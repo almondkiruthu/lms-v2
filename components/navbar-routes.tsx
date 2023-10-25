@@ -10,7 +10,8 @@ import { SearchInput } from "./search-input";
 const NavbarRoutes = () => {
   const pathname = usePathname();
 
-  const isTacherPage = pathname?.startsWith("/teacher");
+  const isTeacherPage = pathname?.startsWith("/teacher");
+  const isCoursePage = pathname?.includes("/courses");
   const isPlayerPage = pathname?.includes("/chapter");
   const isSearchPage = pathname === "/search";
 
@@ -22,7 +23,7 @@ const NavbarRoutes = () => {
         </div>
       )}
       <div className="ml-auto flex gap-x-4">
-        {isTacherPage || isPlayerPage ? (
+        {isTeacherPage || isPlayerPage || isCoursePage ? (
           <Link href="/">
             <Button size="sm" variant="ghost">
               <LogOut className="mr-2 h-4 w-4" />
