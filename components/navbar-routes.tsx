@@ -10,7 +10,7 @@ import { isTeacher } from "@/lib/teacher";
 
 import { SearchInput } from "./search-input";
 
-const NavbarRoutes = () => {
+export const NavbarRoutes = () => {
   const { userId } = useAuth();
   const pathname = usePathname();
 
@@ -45,5 +45,3 @@ const NavbarRoutes = () => {
     </>
   );
 };
-
-export default NavbarRoutes;
