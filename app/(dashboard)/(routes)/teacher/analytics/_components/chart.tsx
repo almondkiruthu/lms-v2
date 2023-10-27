@@ -1,6 +1,17 @@
 "use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  LineChart,
+  Line,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 import { Card } from "@/components/ui/card";
 
@@ -15,7 +26,8 @@ export const Chart = ({ data }: ChartProps) => {
   return (
     <Card>
       <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={data}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="name"
             stroke="#888888"
@@ -30,8 +42,17 @@ export const Chart = ({ data }: ChartProps) => {
             axisLine={false}
             tickFormatter={(value) => `$${value}`}
           />
-          <Bar dataKey="total" fill="#0369a1" radius={[4, 4, 0, 0]} />
-        </BarChart>
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="pv"
+            stroke="#0369a1"
+            activeDot={{ r: 8 }}
+          />
+          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          {/* <Bar dataKey="total" fill="#0369a1" radius={[4, 4, 0, 0]} /> */}
+        </LineChart>
       </ResponsiveContainer>
     </Card>
   );
