@@ -11,3 +11,5 @@ export const useConfettiStore = create<ConfettiStore>((set) => ({
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
+
+// Avoid Hydration errors 
