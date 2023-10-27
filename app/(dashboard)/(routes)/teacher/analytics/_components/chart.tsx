@@ -26,8 +26,7 @@ export const Chart = ({ data }: ChartProps) => {
   return (
     <Card>
       <ResponsiveContainer width="100%" height={350}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <BarChart data={data}>
           <XAxis
             dataKey="name"
             stroke="#888888"
@@ -40,19 +39,10 @@ export const Chart = ({ data }: ChartProps) => {
             fontSize={12}
             tickLine={false}
             axisLine={false}
-            tickFormatter={(value) => `$${value}`}
+            tickFormatter={(value) => `${value}` + " Ksh"}
           />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="pv"
-            stroke="#0369a1"
-            activeDot={{ r: 8 }}
-          />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-          {/* <Bar dataKey="total" fill="#0369a1" radius={[4, 4, 0, 0]} /> */}
-        </LineChart>
+          <Bar dataKey="total" fill="#0369a1" radius={[4, 4, 0, 0]} />
+        </BarChart>
       </ResponsiveContainer>
     </Card>
   );
