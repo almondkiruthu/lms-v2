@@ -1,10 +1,11 @@
-import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+import { db } from "@/lib/db";
+
 export async function POST(
   req: Request,
-  { params }: { params: { courseId: string } },
+  { params }: { params: { courseId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -18,7 +19,7 @@ export async function POST(
       where: {
         id: params.courseId,
         userId: userId,
-      },
+      }
     });
 
     if (!courseOwner) {
@@ -30,12 +31,12 @@ export async function POST(
         url,
         name: url.split("/").pop(),
         courseId: params.courseId,
-      },
+      }
     });
 
     return NextResponse.json(attachment);
   } catch (error) {
-    console.log("[COURSE__ID ATTACHMENTS]", error);
-    return new NextResponse("Interal Server Error", { status: 500 });
+    console.log("COURSE_ID_ATTACHMENTS", error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

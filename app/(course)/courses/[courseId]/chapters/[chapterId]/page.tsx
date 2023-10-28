@@ -12,15 +12,15 @@ import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 
 const ChapterIdPage = async ({
-  params,
+  params
 }: {
-  params: { courseId: string; chapterId: string };
+  params: { courseId: string; chapterId: string }
 }) => {
   const { userId } = auth();
-
+  
   if (!userId) {
     return redirect("/");
-  }
+  } 
 
   const {
     chapter,
@@ -37,16 +37,20 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter || !course) {
-    return redirect("/");
+    return redirect("/")
   }
+
 
   const isLocked = !chapter.isFree && !purchase;
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
 
-  return (
+  return ( 
     <div>
       {userProgress?.isCompleted && (
-        <Banner variant="success" label="You already completed this chapter." />
+        <Banner
+          variant="success"
+          label="You already completed this chapter."
+        />
       )}
       {isLocked && (
         <Banner
@@ -54,7 +58,7 @@ const ChapterIdPage = async ({
           label="You need to purchase this course to watch this chapter."
         />
       )}
-      <div className="mx-auto flex max-w-5xl flex-col pb-20">
+      <div className="flex flex-col max-w-4xl mx-auto pb-20">
         <div className="p-4">
           <VideoPlayer
             chapterId={params.chapterId}
@@ -67,8 +71,10 @@ const ChapterIdPage = async ({
           />
         </div>
         <div>
-          <div className="flex flex-col items-center justify-between p-4 md:flex-row">
-            <h2 className="mb-2 text-2xl font-semibold">{chapter.title}</h2>
+          <div className="p-4 flex flex-col md:flex-row items-center justify-between">
+            <h2 className="text-2xl font-semibold mb-2">
+              {chapter.title}
+            </h2>
             {purchase ? (
               <CourseProgressButton
                 chapterId={params.chapterId}
@@ -92,14 +98,16 @@ const ChapterIdPage = async ({
               <Separator />
               <div className="p-4">
                 {attachments.map((attachment) => (
-                  <a
+                  <a 
                     href={attachment.url}
                     target="_blank"
                     key={attachment.id}
-                    className="flex w-full items-center rounded-md border bg-sky-200 p-3 text-sky-700 hover:underline"
+                    className="flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md hover:underline"
                   >
                     <File />
-                    <p className="line-clamp-1">{attachment.name}</p>
+                    <p className="line-clamp-1">
+                      {attachment.name}
+                    </p>
                   </a>
                 ))}
               </div>
@@ -108,7 +116,7 @@ const ChapterIdPage = async ({
         </div>
       </div>
     </div>
-  );
-};
-
+   );
+}
+ 
 export default ChapterIdPage;

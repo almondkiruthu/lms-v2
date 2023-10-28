@@ -1,7 +1,8 @@
-import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import Mux from "@mux/mux-node";
+import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+
+import { db } from "@/lib/db";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
@@ -10,7 +11,7 @@ const { Video } = new Mux(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { courseId: string } },
+  { params }: { params: { courseId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -28,9 +29,9 @@ export async function DELETE(
         chapters: {
           include: {
             muxData: true,
-          },
-        },
-      },
+          }
+        }
+      }
     });
 
     if (!course) {
@@ -58,7 +59,7 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { courseId: string } },
+  { params }: { params: { courseId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -72,11 +73,11 @@ export async function PATCH(
     const course = await db.course.update({
       where: {
         id: courseId,
-        userId,
+        userId
       },
       data: {
         ...values,
-      },
+      }
     });
 
     return NextResponse.json(course);
